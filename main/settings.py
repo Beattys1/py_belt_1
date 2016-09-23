@@ -82,6 +82,7 @@ DATABASES = {
         'PASSWORD': 'bsean1',
         'HOST': 'localhost',
         'PORT': '',
+
     }
 }
 
