@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- Compiled and minified CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
+    <meta charset="utf-8">
+    <title>Profile</title>
+  </head>
+  <body>
+    <h1> Hello {{profile}}!</h1>
+    <p><a href="/logout">Logout</a></p>
+    <p>Here is a list of your friends:</p>
+    {% if messages %}
+      <ul class="messages">
+        {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+    <table>
+      <thead>
+        <th>Alias</th>
+        <th>Action</th>
+      </thead>
+
+      {% for homies in friend %}
+      <tbody>
+        <td>{{homies.friend_id.alias}}</td>
+        <td><a href="/user/{{homies.friend_id.id}}">View Profile</a> | <a href="/delete/{{homies.friend_id.id}}">Remove Friend</a></td>
+      </tbody>
+      {% endfor %}
+    </table>
+
+      <p>Other Users not on your friends list:</p>
+      <table>
+        <thead>
+          <th>Alias |</th>
+          <th>Action</th>
+        </thead>
+        {% for person in not_friends %}
+        <tbody>
+          <td><a href="/user/{{person.id}}">{{person.alias}}</a></td>
+          <td>
+            <form action="/add_friend/{{person.id}}" method="get">
+              <input type="submit" value="Add Friend">
+            </form>
+          </td>
+        </tbody>
+        {% endfor %}
+      </table>
+    </table>
+  </body>
+</html>
